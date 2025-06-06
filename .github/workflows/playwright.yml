@@ -31,7 +31,7 @@ jobs:
         projectBaseDir: .
         args: >
           -Dsonar.organization=gauravarghodepersonal
-          -Dsonar.projectKey=GauravArghodePersonal_PersonalFiles
+          -Dsonar.projectKey=GauravArghodePersonal_last
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
