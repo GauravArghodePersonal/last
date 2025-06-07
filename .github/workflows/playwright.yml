@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        submodules: false
+        submodules: false 
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
@@ -78,3 +78,14 @@ jobs:
         destination_dir: ./  # Deploy to root of gh-pages branch
         keep_files: false   # Clean the branch before deploy
         force_orphan: true  # Use a single commit in gh-pages branch
+    - name: Validate Report Files
+      run: |
+        echo "Report directory contents:"
+        ls -R playwright-report
+        if [ ! -f "playwright-report/index.html" ]; then
+        echo "::error::Missing index.html!"
+        exit 1
+        fi
+
+    - name: Disable Jekyll Processing
+      run: touch playwright-report/.nojekyll
