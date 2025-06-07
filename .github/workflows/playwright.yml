@@ -60,11 +60,21 @@ jobs:
     - name: Show Quality Gate Status
       run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
 
+    - name: Verify Playwright Report Exists
+      if: always()
+      run: |
+        if [ ! -d "playwright-report" ]; then
+        echo "::error::Playwright report directory not found!"
+        mkdir -p playwright-report
+        echo "<html><body><h1>No test report generated</h1></body></html>" > playwright-report/index.html
+        fi
+
     - name: Deploy HTML Report to GitHub Pages
       if: always()
       uses: peaceiris/actions-gh-pages@v4
       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: ./playwright-report
-          keep_files: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./playwright-report
+        destination_dir: ./  # Deploy to root of gh-pages branch
+        keep_files: false   # Clean the branch before deploy
+        force_orphan: true  # Use a single commit in gh-pages branch
