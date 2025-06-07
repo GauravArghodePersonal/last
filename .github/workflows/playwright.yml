@@ -63,5 +63,5 @@ jobs:
       if: always() # Also runs even if tests fail
       uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.GH_PAT }} # Must be a PAT with `repo` scope
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./playwright-report
